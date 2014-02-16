@@ -1,6 +1,6 @@
 'use strict';
 
-var sql = require('node-sqlserver');
+var sql = require('msnodesql');
 var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
 
 function Test(res){
