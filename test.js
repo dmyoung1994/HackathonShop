@@ -1,10 +1,22 @@
 'use strict';
 
-var sql = require('msnodesql');
-var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
+
+var sql = require('mssql'); 
+
+var config = {
+    user: 'ShopNearMeAdmin',
+    password: 'Shopnearme14',
+    server: 'v598oe4pzx.database.windows.net,1433',
+    database: 'ShopNearMe'
+}
+
+//var sql = require('msnodesql');
+//var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
 
 function Test(res){
-         sql.query(conn_str, "SELECT * FROM keywords", function (err, results) {
+    var request = new sql.Request();
+    request.query("SELECT * FROM keywords", function (err, results) {
+    //     sql.(conn_str, "SELECT * FROM keywords", function (err, results) {
          if (err) {
              res.writeHead(500, { 'Content-Type': 'text/plain' });
              res.write("Got error :-( " + err);
