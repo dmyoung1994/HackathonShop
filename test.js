@@ -22,10 +22,11 @@ function Test(res){
 	var request = new sql.Request();
 	request.query('SELECT * FROM keywords', {
 	    success: function(result) {
-		res.writeHead(200, { 'Content-Type': 'text/plain' });
-		for (var i = 0; i < result.rows.length; i++) {
-		    res.write("id: " + result.rows[i][0] + " keyword: " + result.rows[i][1] + " count: " + result.rows[i].[2]);
-		}
+		// res.writeHead(200, { 'Content-Type': 'text/plain' });
+		// for (var i = 0; i < result.rows.length; i++) {
+		//     res.write("id: " + result.rows[i][0] + " keyword: " + result.rows[i][1] + " count: " + result.rows[i].[2]);
+		// }
+		res.write(result);
 		res.end("; Done.")
 	    }, 
 	    error: function (err) {
