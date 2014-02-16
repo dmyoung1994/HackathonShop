@@ -5,7 +5,8 @@ var URL = require('url');
 var http = require('http');
 
 var NUMBER_OF_KEYWORDS_TO_RETURN = 10;
-var API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&';
+var DEFAULT_RANGE = 100;
+var API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&range='+DEFAULT_RANGE+'&';
 
 function Datahandler(){
 	//@param zipcode - zipcode of the location
