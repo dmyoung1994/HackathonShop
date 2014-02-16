@@ -35,26 +35,34 @@
 		<script>
 			new ElastiStack( document.getElementById('elasticstack') );
 			
-			var screenLeft = 0;
-			var imgOrig = 0;
+			var mouseDown = 0;
+			var mouseUp = 0;
+			
+			function SetValues(){
+			    return window.event.clientX;
+			} 
 			
 			$(document).ready(function(){
-				$('img').mousedown(function(){
-					var $this = $(this);
-					var imgOrig = $this.offsetLeft();
-					console.log(imgOrig);
+			
+				$.ajax({
+					type: "POST",
+					url: '/ajax',
+					data: "url='http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&userlocation=94063&keywords=star+wars+lego'"
+				}).done(function(data){
+					console.log(data);
 				});
 				
-				$(body).mouseup(function(){
-					var $this = $(this);
-					var move = getCenter($this);
-					console.log(move);
-					var delta = centerY - move;
-					// If image is dragged to the left
-					if(delta > 0){
-						alert(left);
-					} else {
-						alert(right);
+				$('body').mousedown(function(){
+					mouseDown = SetValues();
+				});
+				
+				$('body').mouseup(function(){
+					mouseUp = SetValues();
+					var delta = mouseDown - mouseUp;
+					if (delta > 150){
+						alert("left");
+					} else if(delta < -150){
+						alert("right");
 					}
 				});
 			});
