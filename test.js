@@ -30,32 +30,12 @@ function Test(res) {
 	request.query('SELECT * FROM keywords', function (err, result) {
  	    if (err) {
  		res.writeHead(500, { 'Content-Type': 'text/plain' });
- 		res.write("Got error :-( " + err);
+ 		res.write("Got query error :-( " + err);
  		res.end("");
 		return;
  	    }
-
-	    res.send(result);
+	    res.send(result[0]);
 	});
- // {
- // 	    success: function(result) {
- // 		// res.writeHead(200, { 'Content-Type': 'text/plain' });
- // 		// for (var i = 0; i < result.rows.length; i++) {
- // 		//     res.write("id: " + result[i][0] + " keyword: " + result[i][1] + " count: " + result[i][2]);
- // 		// }
- // 		res.send(result);
- // 		return;
- // 	    }, 
- // 	    error: function (err) {
- // 		if (err) {
- // 		    res.writeHead(500, { 'Content-Type': 'text/plain' });
- // 		    res.write("Got error :-( " + err);
- // 		    res.end("");
- // 		}
- // 		return;
- // 	    }
- // 	});
-    //res.send('test html');
     });
 }
 module.exports      = Test;
