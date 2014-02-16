@@ -23,6 +23,6 @@ block content
                                                     img(src=image.ImageInfo.link,alt="...")
                                                     h3!= product.SearchResult.product.name+' ('+product.SearchResult.location.name+')'
                                                     p!= product.SearchResult.product.descriptionLong
-                                                    a(href="#",class="btn btn-default",role="button")!= '$'+product.SearchResult.price
+                                                    a(href=product.SearchResult.product.url,class="btn btn-default",role="button")!= '$'+product.SearchResult.price
                                                     img(src=product.SearchResult.location.retailer.logo, alt="...")
 div.footer

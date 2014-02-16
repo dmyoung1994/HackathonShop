@@ -14,9 +14,10 @@
   "dependencies": {
     "q": "~0.9.7",
     "mysql": "~2.0.1",
+    "knex": "~0.5.6",
     "string": "~1.6.1",
     "lodash": "~2.2.1",
-    "sendgrid-nodejs": "0.1.*",
+    "sendgrid": "0.4.4",
     "express": "3.4.8",
     "jade": "1.1.5"
   },

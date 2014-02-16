@@ -3,7 +3,7 @@
 var http = require('http');
 var URL = require('url');
 var jade = require('jade');
-var API_USER = 'segahm@gmail.com',
+var API_USER = 'segah',
 	API_KEY = 'Gy3NsCQYwD3QTP';
 function Response(res){
 	this.res = res;
@@ -66,7 +66,7 @@ function Response(res){
 				  to:       'dmyoung1994@gmail.com',
 				  from:     'segahm@gmail.com',
 				  subject:  'Shop near me - '+most_popular_keyword,
-				  text:     ''
+				  html:     text
 				});
 				sendgrid.send(email, function(err, json) {
 				  if (err) { return console.error(err); }
