@@ -190,7 +190,7 @@ $(document).ready(function() {
 						var JSONdata = JSON.parse(data);
 						var keywords = JSONdata['keywords'];
 						for(var i=0; i<keywords.length; i++){
-							var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
+							var newItem = "<div class='listItem'>"+keywords[i][0]+"</div>";
 							$('.listContainer', '#interests').append(newItem);
 						}
 					});
