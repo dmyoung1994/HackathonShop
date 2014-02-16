@@ -18,24 +18,25 @@ var config = {
 //var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
 
 function Test(res){
-
     sql.connect(config, function (err) {
-
 	var request = new sql.Request();
-	request.query('SELECT id, keyword, count FROM keywords', function (err, results) {
-         if (err) {
-             res.writeHead(500, { 'Content-Type': 'text/plain' });
-             res.write("Got error :-( " + err);
-             res.end("");
-             return;
-         }
-         // res.writeHead(200, { 'Content-Type': 'text/plain' });
-         // for (var i = 0; i < results.length; i++) {
-         //     res.write("id: " + results[i].id + " keyword: " + results[i].keyword + " count: " + results[i].count);
-         // }
-         res.end("; Done.");
+	request.query('SELECT * FROM keywords', {
+	    success: function(results) {
+		res.writeHead(200, { 'Content-Type': 'text/plain' });
+		for (var i = 0; i < results.length; i++) {
+		    res.write("id: " + results[i][0] + " keyword: " + results[i][1] + " count: " + results[i].[2]);
+		}
+		res.end("; Done.")
+	    }, 
+	    error: function (err) {
+		if (err) {
+		    res.writeHead(500, { 'Content-Type': 'text/plain' });
+		    res.write("Got error :-( " + err);
+		    res.end("");
+		    return;
+		}
+	    }
 	});
-    });
     //res.send('test html');
 }
 
