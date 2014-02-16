@@ -17,7 +17,8 @@
     "lodash": "~2.2.1",
     "sendgrid-nodejs": "0.1.*",
     "express": "3.4.8",
-    "jade": "1.1.5"
+    "jade": "1.1.5",
+    "msnodesql": "0.2.1"
   },
   "devDependencies": {
     "jshint": "~2.4.x"
