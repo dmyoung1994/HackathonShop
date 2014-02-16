@@ -17,11 +17,12 @@ app.use(express.bodyParser());
 //!!!!!!!!!!!!!SET WEB SERVER LISTENER!!!!!!!!!!!!!!!!!!!
 app.use(function(req, res){//, next){
 	console.log('%s %s', req.method, req.url);
-	var response = new Response(res);
-	var action = req.url.match(/\/([a-z]+)/)[1];
-	var handle = null;
-	var keywords = null;
-	var location = null;
+	var response = new Response(res),
+		action = req.url.match(/\/([a-z]+)/)[1],
+		handle = null,
+		keywords = null,
+		longt = null,
+		lat = null;
 	switch(action){
 	case 'ajax':
 		console.log('ajax');
@@ -37,18 +38,18 @@ app.use(function(req, res){//, next){
 		break;
 	case 'products':
 		handle = new Datahandler();
-		location = req.url.match(/loc=([^&\/]+)/)[1];
-		handle.getProducts(location,response);
+		longt = req.url.match(/long=([^&\/]+)/)[1];
+		lat = req.url.match(/lat=([^&\/]+)/)[1];
+		handle.getProducts(lat,longt,response);
 		console.log('keywords');
 		break;
 	case 'remove':
 		keywords = req.url.match(/key=([^&\/]+)/)[1];
 		keywords = keywords.split(',');
 		handle = new Datahandler();
-		handle.removeKeys(keywords).then(function(){
-			console.log('removing keys');
-		});
+		handle.removeKeys(keywords);
 		console.log('remove');
+		res.send(204 );
 		break;
 	case 'add':
 		keywords = req.url.match(/key=([^&\/]+)/)[1];
@@ -56,6 +57,19 @@ app.use(function(req, res){//, next){
 		handle = new Datahandler();
 		handle.addKeys(keywords);
 		console.log('add');
+		res.send(204 );
+		break;
+	case 'like':
+		handle = new Datahandler();
+		handle.doLike(req.body.object);
+		console.log('like');
+		res.send(204 );
+		break;
+	case 'dislike':
+		handle = new Datahandler();
+		handle.doDislike(req.body.object);
+		console.log('dislike');
+		res.send(204 );
 		break;
 	case 'fav':
 		handle = new Datahandler();
@@ -64,9 +78,11 @@ app.use(function(req, res){//, next){
 		break;
 	case 'change':
 		handle = new Datahandler();
-		location = req.url.match(/loc=([^&\/]+)/)[1];
-		handle.changeLocation(location,response);
+		longt = req.url.match(/long=([^&\/]+)/)[1];
+		lat = req.url.match(/lat=([^&\/]+)/)[1];
+		handle.changeLocation(lat,longt,response);
 		console.log('change');
+		res.send(204 );
 		break;
 	case 'test':
 		new Test(res);
