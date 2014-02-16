@@ -30,7 +30,7 @@ function Test(res){
          }
          res.writeHead(200, { 'Content-Type': 'text/plain' });
          for (var i = 0; i < results.length; i++) {
-             res.write("id: " + results[i].id + " keyword: " + results[i].keyword + " count: " + results[i].count);
+//             res.write("id: " + results[i].id + " keyword: " + results[i].keyword + " count: " + results[i].count);
          }
          res.end("; Done.");
      });
