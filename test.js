@@ -7,7 +7,7 @@ var config = {
     user: 'ShopNearMeAdmin',
     password: 'Shopnearme14',
     server: 'v598oe4pzx.database.windows.net',
-    port: '1433',
+    port: 1433,
     database: 'ShopNearMe'
 }
 
