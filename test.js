@@ -6,7 +6,7 @@ var sql = require('mssql');
 var config = {
     user: 'ShopNearMeAdmin',
     password: 'Shopnearme14',
-    server: 'v598oe4pzx.database.windows.net,1433',
+    server: 'v598oe4pzx.database.windows.net',
     database: 'ShopNearMe'
 }
 
