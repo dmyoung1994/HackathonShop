@@ -8,14 +8,10 @@ var NUMBER_OF_KEYWORDS_TO_RETURN = 10;
 var API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&';
 
 function Datahandler(){
-	function add(keywords){
-		//for each key in keywords, run:
-		//INSERT INTO keywords fields () values ()
-		return Q.all();
-	}
 	//@param zipcode - zipcode of the location
 	this.changeLocation = function(zipcode,res){
-		this.getProducts(zipcode,res,true);
+		//we don't care about getting a response immediately
+		return Q.ninvoke(this,'getProducts', zipcode,res,true);
 	};
 	//returns a list of top NUMBER_OF_KEYWORDS_TO_RETURN (10) keywords
 	this.getKeywords = function(){
@@ -72,20 +68,19 @@ function Datahandler(){
 			console.log('ERROR: ' + e.message);
 		});
 	};
-	//DO NOT MODIFY THE CODE BELOW
-
+	this.executeRemove = function(somedata) {
+		console.log('executeRemove');
+	};
+	this.executeAdd= function(somedata) {
+		console.log('executeAdd');
+	};
 	//@param keywords - an array of keywords
 	this.removeKeys = function(keywords){
-		function remove(keywords){
-			//for each key in keywords, run:
-			//DELETE from keywords WHERE keyword LIKE "%"+key+"%"
-			return Q.all();
-		}
-		return Q.ninvoke(remove, keywords);
+		return Q.ninvoke(this,'executeRemove', keywords);
 	};
 	//@param keywords - an array of keywords
 	this.addKeys = function(keywords){
-		return Q.ninvoke(add, keywords);
+		return Q.ninvoke(this,'executeAdd', keywords);
 	};
 };
 

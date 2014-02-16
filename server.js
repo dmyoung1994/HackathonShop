@@ -1,11 +1,10 @@
 'use strict';
 
 var express         = require('express'),
-	events          = require('events'),
 	Response		= require('./response.js'),
 	Test			= require('./test.js'),
 	Datahandler		= require('./datahandler.js');
-//	server          = new events.EventEmitter();    //will be used in child modules
+
 
 var app = express();
 GLOBAL.EMAIL_BODY = null;
