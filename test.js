@@ -17,7 +17,7 @@ var config = {
 //var sql = require('msnodesql');
 //var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
 
-function Test(res){
+function Test(res) {
     sql.connect(config, function (err) {
 	var request = new sql.Request();
 	request.query('SELECT * FROM keywords', {
@@ -38,6 +38,6 @@ function Test(res){
 	    }
 	});
     //res.send('test html');
+    });
 }
-
 module.exports      = Test;
