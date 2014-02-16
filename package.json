@@ -13,7 +13,7 @@
   "author": "Hack Shop",
   "dependencies": {
     "q": "~0.9.7",
-    "msnodesql": "0.2.1",
+    "mysql": "~2.0.1",
     "string": "~1.6.1",
     "lodash": "~2.2.1",
     "sendgrid-nodejs": "0.1.*",
