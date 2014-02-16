@@ -1,5 +1,4 @@
-/*'use strict';
-
+ 'use strict';
 
 var sql = require('mssql'); 
 
@@ -42,4 +41,4 @@ function Test(res) {
     });
 }
 module.exports      = Test;
-*/
+
