@@ -16,3 +16,7 @@ HackathonShop
 * /remove?key=key1,key2,key3
 * /add?key=key1,key2,key3
 * /change?loc=95014
+
+#Instructions for local gitignore:
+1) enter test.js under .git/info/exclude
+2) run git update-index --assume-unchanged test.js
