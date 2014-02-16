@@ -2,9 +2,21 @@
 
 var express         = require('express'),
 	Response		= require('./response.js'),
-	Test			= require('./test.js'),
-	Datahandler		= require('./datahandler.js');
+	Datahandler		= require('./datahandler.js'),
+	Knex 			= require('knex');
 
+Knex.knex = Knex.initialize({
+  client: 'mysql',
+  connection: {
+    host     : 'us-cdbr-azure-west-b.cleardb.com',
+    user     : 'b773b54a80dfb5',
+    password : '584d33e0',
+    database : 'newshopdb',
+    charset  : 'utf8',
+    port: 3306 //1433
+  }
+});
+//var Test			= require('./test.js');
 
 var app = express();
 GLOBAL.EMAIL_BODY = null;
@@ -32,7 +44,7 @@ app.use(function(req, res){//, next){
 		break;
 	case 'keywords':
 		handle = new Datahandler();
-		response.sendKeywods(handle.getKeywords());
+		handle.getKeywords(response);
 		break;
 	case 'products':
 		handle = new Datahandler();
@@ -56,13 +68,12 @@ app.use(function(req, res){//, next){
 		break;
 	case 'like':
 		handle = new Datahandler();
-		console.log(req.body.object);
-		handle.doLike(req.body.object);
+		handle.doLike(JSON.parse(req.body.object));
 		res.send(204 );
 		break;
 	case 'dislike':
 		handle = new Datahandler();
-		handle.doDislike(req.body.object);
+		handle.doDislike(JSON.parse(req.body.object));
 		res.send(204 );
 		break;
 	case 'fav':
@@ -76,9 +87,9 @@ app.use(function(req, res){//, next){
 		handle.changeLocation(lat,longt,response);
 		res.send(204);
 		break;
-	case 'test':
-		new Test(res);
-		break;
+	//case 'test':
+	//	new Test(res);
+	//	break;
 	default:
 		//send test output
 		res.send('hello');
