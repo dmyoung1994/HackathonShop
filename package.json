@@ -1,0 +1,24 @@
+{
+  "name": "hack-shop",
+  "version": "0.0.0",
+  "description": "hello world hack shop app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmyoung1994/HackathonShop.git"
+  },
+  "author": "Hack Shop",
+  "dependencies": {
+    "q": "~0.9.7",
+    "string": "~1.6.1",
+    "lodash": "~2.2.1",
+    "sendgrid-nodejs": "0.1.*",
+    "express": "3.4.8"
+  },
+  "devDependencies": {
+    "jshint": "~2.4.x"
+  }
+}
