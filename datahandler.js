@@ -33,6 +33,7 @@ function Datahandler(){
 		_(rows).forEach(function(val){
 			new_rows.push(val[0]);
 		});
+		return new_rows;
 		//var keywords = ['apple','iphone','television','electronics'];	//fake keywords
 		/*knex('keywords')
 		.where('keyword','ilike','%fdsfds%')		//.where('keyword','ilike','%fdsfds%')
