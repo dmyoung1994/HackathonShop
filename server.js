@@ -61,6 +61,7 @@ app.use(function(req, res){//, next){
 		break;
 	case 'like':
 		handle = new Datahandler();
+		console.log(req.body.object);
 		handle.doLike(req.body.object);
 		console.log('like');
 		res.send(204 );

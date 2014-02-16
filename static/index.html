@@ -16,56 +16,144 @@
 		<script src="js/modernizr.custom.js"></script>
 		<script src="js/draggabilly.pkgd.min.js"></script>
 		<script src="js/elastiStack.js"></script>
+		<script src="js/controllers.js"></script>
 	</head>
 	<body>
+		<!-- Main View -->
 		<div class="container">
 			<!-- Top Navigation -->
-			<header>
-				<h1>HackShop <span>Products you like, near you.</span></h1>
-			</header>
+			<div class="productHeader index">
+				<div class="menuLeft cats">Interests</div>
+				<div class="title">HackShop</div>
+				<div class="menuRight favs">Favourites</div>
+			</div>
 			<ul id="elasticstack" class="elasticstack">
-				<li><img src="img/1.jpg" alt="01"/><h5>Saudade</h5></li>
-				<li><img src="img/2.jpg" alt="02"/><h5>Tuqburni</h5></li>
-				<li><img src="img/3.jpg" alt="03"/><h5>Retrouvailles</h5></li>
-				<li><img src="img/4.jpg" alt="04"/><h5>Onsra</h5></li>
-				<li><img src="img/5.jpg" alt="05"/><h5>Mamihlapinatapai</h5></li>
-				<li><img src="img/6.jpg" alt="06"/><h5>Koi No Yokan</h5></li>
 			</ul>
 		</div>
+		
+		<div id="slide-menu" class="container">
+			<div class="productHeader">
+				<div class="menuLeft back">< Back</div>
+				<div class="title">Interests</div>
+			</div>
+			<div id="interests" class="userInt">
+				<div class='listContainer'>
+				</div>
+			</div>
+		</div>
+		
+		<!--
+<div id="slide-menu-add" class="container">
+			<div class="productHeader">
+				<div class="menuLeft back">< Back</div>
+				<div class="title"><input type="search" placeholder="Search"></div>
+			</div>
+			<div id="add-search" class="searchResults">
+			</div>
+		</div>
+-->
+	
+		<div class="spinner">
+			<img class="loader" src="img/loader.gif">
+		</div>
+		
+		<div id="slide-menu-fav" class="container">
+			<div class="productHeader">
+				<div class="title">Favourites</div>
+				<div class="menuRight back">Back ></div>
+			</div>
+			<div id="favs" class="userFav">
+				<div class='listContainer'>
+				</div>
+			</div>
+		</div>
+		
+		<!-- App launch view -->
+		<div class="modal">
+			<div class="modalTitle">
+				Choose a few categories to start:
+			</div>
+			<div class="modalCats">
+				<div class="row">
+					<div class="modalButton blue">
+						Computer
+					</div>
+					<div class="modalButton blue">
+						Phone
+					</div>
+				</div>
+				<div class="row">
+					<div class="modalButton blue">
+						Tablet
+					</div>
+					<div class="modalButton blue">
+						Shampoo
+					</div>
+				</div>
+				<div class="row">
+					<div class="modalButton blue">
+						Sports
+					</div>
+					<div class="modalButton blue">
+						Pets
+					</div>
+				</div>
+				<div class="row">
+					<div class='next'>
+						Next >
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="overlay">
+		</div>
+		
+		<!-- Product Detail View -->
+		<div class="productDetail">
+			<div class="productHeader">
+				<div class="menuLeft done">Done</div>
+				<div class="title">Product Details</div>
+			</div>
+			<div class="scrollContainer">
+				<div class="imageContainer">
+					<img id="img" src=""/>
+				</div>
+				<div class="productFooter">
+					<div class="productWrap">
+						<div class="topRow">
+							<div class="priceWrap">
+								<div class="subTitle">
+									Price
+								</div>
+								<div id="price">
+								</div>
+							</div>
+							<div class="distWrap">
+								<div class="subTitle">
+									Distance
+								</div>
+								<div id="dist">
+								</div>
+							</div>
+						</div>
+						<div class="descWrap">
+							<div class="subTitle">
+							Description
+							</div>
+							<div id="desc">
+							</div>
+						</div>
+						<div class="buyWrap">
+							<a class="modalButton blue buyButton" href="" target="blank">
+								Buy Online
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 		<script>
-			new ElastiStack( document.getElementById('elasticstack') );
-			
-			var mouseDown = 0;
-			var mouseUp = 0;
-			
-			function SetValues(){
-			    return window.event.clientX;
-			} 
-			
-			$(document).ready(function(){
-			
-				$.ajax({
-					type: "POST",
-					url: '/ajax',
-					data: "url='http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&userlocation=94063&keywords=star+wars+lego'"
-				}).done(function(data){
-					console.log(data);
-				});
-				
-				$('body').mousedown(function(){
-					mouseDown = SetValues();
-				});
-				
-				$('body').mouseup(function(){
-					mouseUp = SetValues();
-					var delta = mouseDown - mouseUp;
-					if (delta > 150){
-						alert("left");
-					} else if(delta < -150){
-						alert("right");
-					}
-				});
-			});
 		</script>
 	</body>
 </html>
