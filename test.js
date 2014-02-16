@@ -1,7 +1,7 @@
 'use strict';
 
 var sql = require('node-sqlserver');
-var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:v598oe4pzx.database.windows.net,1433;Database=ShopNearMe;Uid=ShopNearMeAdmin;Pwd=Shopnearme14;Encrypt=yes;Connection Timeout=30;";
+var conn_str = "Driver={SQL Server Native Client 10.0};Server=tcp:{v598oe4pzx}.database.windows.net,1433;Database={ShopNearMe};Uid={ShopNearMeAdmin};Pwd={Shopnearme14};Encrypt=yes;Connection Timeout=30;";
 
 function Test(res){
     sql.query(conn_str, "SELECT * FROM keywords", function (err, results) {
