@@ -3,6 +3,7 @@
 var express         = require('express'),
 	events          = require('events'),
 	Response		= require('./response.js'),
+	Test			= require('./test.js'),
 	Datahandler		= require('./datahandler.js');
 //	server          = new events.EventEmitter();    //will be used in child modules
 
@@ -67,6 +68,10 @@ app.use(function(req, res){//, next){
 		location = req.url.match(/loc=([^&\/]+)/)[1];
 		handle.changeLocation(location,response);
 		console.log('change');
+		break;
+	case 'test':
+		new Test(res);
+		console.log('test');
 		break;
 	default:
 		//send test output
