@@ -228,6 +228,7 @@ body {
   height: 1000%;
   z-index: 9999;
   background-color: rgba(0,0,0,0.7); /*dim the background*/
+  display: none;
 }
 
 .modal {
@@ -242,6 +243,7 @@ body {
 	border-radius: 5px;
 	text-align: center;
 	z-index: 10000;
+	display: none;
 }
 
 .modalTitle {
@@ -357,7 +359,6 @@ input[type="search"] {
 #interests {
 	position: relative;
 	display: inline-block;
-	margin-top: 50px;
 	width: 100%;
 }
 
@@ -365,6 +366,7 @@ input[type="search"] {
 	position: relative;
 	width: 100%;
 	display: inline-block;
+	margin-top: 50px;
 }
 
 .listItem {
@@ -396,4 +398,11 @@ input[type="search"] {
 
 .loader {
 	width: 70px;
+}
+
+.faveImg {
+	display: inline-block;
+	height: 70px;
+	position: absolute;
+	left: 10px;
 }

@@ -36,6 +36,8 @@ $(document).ready(function() {
 	$('#slide-menu').css('left', -windowWidth);
 	$('#slide-menu-add').css('left', -windowWidth);
 	$('#slide-menu-fav').css('right', -windowWidth);
+	$('.modal').fadeIn('slow');
+	$('.overlay').fadeIn('slow');
 	getLocation();
 	$('.next').click(function(){
 		var keywords = "";
@@ -98,10 +100,16 @@ $(document).ready(function() {
 					type: "GET",
 					url: "/fav"
 				}).done(function(data){
-					//console.log(data);
-					var JSONdata = JSON.parse(data);
-					var favourites = JSONdata['products'];
-					console.log(favourites);
+					$('.listContainer', '#favs').html("");
+						var JSONdata = JSON.parse(data);
+						var favourites = JSONdata['favs'];
+						for(var i=0;i<favourites.length;i++){
+							var productName = favourites[i]['product']['name'];
+							var productImage = favourites[i]['product']['images'][0]['ImageInfo']['link'];
+							var buyUrl = favourites[i]['product']['url'];
+							var newItem = "<div class='listItem'><img class='favImg' src='"+productImage+"'><div class='favProdName'>"+productName+"</div><a class='modalButton blue' href='"+buyUrl+"'>Buy Now</a></div>";
+							$('.listContainer', '#favs').append(newItem);
+						}
 				});
 			});
 		});
@@ -133,7 +141,7 @@ $(document).ready(function() {
 		mouseUpY = mouseUp[1];
 		var deltaY = mouseDownY - mouseUpY;
 		var deltaX = mouseDownX - mouseUpX;
-		if (deltaX > 100) {
+		if (deltaX > 70) {
 			numberOfProducts--;
 			dataString = "object=" + $('.first').attr('obj');
 			$.ajax({
@@ -190,16 +198,20 @@ $(document).ready(function() {
 						type: "GET",
 						url: "/fav"
 					}).done(function(data){
-						//console.log(data);
-						$('.listContainer', '#favs').html();
+						$('.listContainer', '#favs').html("");
 						var JSONdata = JSON.parse(data);
-						var favourites = JSONdata['products'];
-						console.log(favourites);
-						//$('.listContainer', '#favs').append(newItem);
+						var favourites = JSONdata['favs'];
+						for(var i=0;i<favourites.length;i++){
+							var productName = favourites[i]['product']['name'];
+							var productImage = favourites[i]['product']['images'][0]['ImageInfo']['link'];
+							var buyUrl = favourites[i]['product']['url'];
+							var newItem = "<div class='listItem'><img class='favImg' src='"+productImage+"'><div class='favProdName'>"+productName+"</div><a class='modalButton blue' href='"+buyUrl+"' target='_blank'>Buy Now</a></div>";
+							$('.listContainer', '#favs').append(newItem);
+						}
 					});
 				});
 			} 
-		} else if (deltaX < -100) {
+		} else if (deltaX < -70) {
 			numberOfProducts--;
 			dataString = "object=" + $('.first').attr('obj');
 			console.log(dataString);
@@ -257,12 +269,16 @@ $(document).ready(function() {
 						type: "GET",
 						url: "/fav"
 					}).done(function(data){
-						//console.log(data);
-						$('.listContainer', '#favs').html();
+						$('.listContainer', '#favs').html("");
 						var JSONdata = JSON.parse(data);
-						var favourites = JSONdata['products'];
-						console.log(favourites);
-						//$('.listContainer', '#favs').append(newItem);
+						var favourites = JSONdata['favs'];
+						for(var i=0;i<favourites.length;i++){
+							var productName = favourites[i]['product']['name'];
+							var productImage = favourites[i]['product']['images'][0]['ImageInfo']['link'];
+							var buyUrl = favourites[i]['product']['url'];
+							var newItem = "<div class='listItem'><img class='favImg' src='"+productImage+"'><div class='favProdName'>"+productName+"</div><a class='modalButton blue' href='"+buyUrl+"' target='_blank'>Buy Now</a></div>";
+							$('.listContainer', '#favs').append(newItem);
+						}
 					});
 				});
 			} 
