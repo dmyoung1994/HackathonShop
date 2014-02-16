@@ -28,7 +28,11 @@ function Datahandler(){
 			rows.push([key,count]);
 		});
 		rows.sort(numSort);
-		return rows.slice(0,NUMBER_OF_KEYWORDS_TO_RETURN);
+		rows.slice(0,NUMBER_OF_KEYWORDS_TO_RETURN);
+		var new_rows = [];
+		_(rows).forEach(function(val){
+			new_rows.push(val[0]);
+		});
 		//var keywords = ['apple','iphone','television','electronics'];	//fake keywords
 		/*knex('keywords')
 		.where('keyword','ilike','%fdsfds%')		//.where('keyword','ilike','%fdsfds%')
