@@ -1,0 +1,42 @@
+extends layout
+ 
+block content
+
+
+
+  div.container
+    #content
+        #main.row
+            #content.span12
+                div(class="item-page row-fluid")
+                    div.row-fluid
+                        div.span10
+                            <!--message-->
+                            div.control-group
+                                div.controls
+                                     p
+                                        - var data = GLOBAL.EMAIL_BODY;
+                                        - if (data !== null)
+                                        - var is_first = true
+                                        - var location = '';
+                                        - each product in data.RetailigenceSearchResult.results
+                                            - if (is_first)
+                                                - location  = product.SearchResult.location.address.city+', '+product.SearchResult.location.address.state
+                                                - p!= location
+                                                - is_first = false
+                                            ul.media-list
+                                                li.media
+                                                - if (product.SearchResult.product.images)
+                                                    - each image in product.SearchResult.product.images
+                                                        -console.log(image)
+                                                        - if (typeof image.ImageInfo !== 'undefined' && image.ImageInfo.imageName === 'LARGE')
+                                                            a(class="pull-left", href="#")
+                                                                img(class="media-object",src=image.ImageInfo.link, alt="...")
+                                                div.media-body
+                                                    h4.media-heading!= product.SearchResult.product.name+' ('+product.SearchResult.location.name+')'
+                                                        img(src=product.SearchResult.location.retailer.logo, alt="...")
+                                                        div.control-group
+                                                            div.controls
+                                                                p!= product.SearchResult.product.descriptionLong
+                                                                p!= '$'+product.SearchResult.price
+  div.footer

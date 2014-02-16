@@ -1,25 +1,28 @@
 extends layout
  
 block content
-
-
-
-  div.container
-    #content
-        #main.row
-            #content.span12
-                div(class="item-page row-fluid")
-                    div.row-fluid
-                        div.span10
-                            <!--message-->
-                            div.control-group
-                                div.controls
-                                     p
-                                        - var data = GLOBAL.EMAIL_BODY;
-                                        //p()!= data.RetailigenceSearchResult
-                                        - if (data != null)
-                                            - each product in data.RetailigenceSearchResult.results
-                                                p()!= product.SearchResult.product.name
-                                                p()!= product.SearchResult.location.phone
-                                                p()!= product.SearchResult.product.descriptionLong
-  div.footer
+    div.container
+        div.row
+            div.span12
+                - var data = GLOBAL.EMAIL_BODY;
+                - if (data !== null)
+                    //- if (typeof data.RetailigenceSearchResult.results !== 'undefined')
+                    - var location  = data.RetailigenceSearchResult.results[0].SearchResult.location
+                    - location = location.address.city+', '+location.address.state
+                    h4!= 'Best Offers for: '+location
+                    div(style='float:right')
+                        img(src='/static/img/logo.png',alt="...")
+                    hr
+                    ul.thumbnails
+                        - each product in data.RetailigenceSearchResult.results
+                            - if (product.SearchResult.product.images)
+                                - each image in product.SearchResult.product.images
+                                    - if (typeof image.ImageInfo !== 'undefined' && image.ImageInfo.imageName === 'LARGE')
+                                            li.span4(style='list-style-type:none')
+                                                div.thumbnail
+                                                    img(src=image.ImageInfo.link,alt="...")
+                                                    h3!= product.SearchResult.product.name+' ('+product.SearchResult.location.name+')'
+                                                    p!= product.SearchResult.product.descriptionLong
+                                                    a(href="#",class="btn btn-default",role="button")!= '$'+product.SearchResult.price
+                                                    img(src=product.SearchResult.location.retailer.logo, alt="...")
+div.footer
