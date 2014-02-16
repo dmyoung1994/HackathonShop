@@ -4,11 +4,13 @@
 var sql = require('mssql'); 
 
 var config = {
+    driver: 'msnodesql',
     user: 'ShopNearMeAdmin',
     password: 'Shopnearme14',
     server: 'v598oe4pzx.database.windows.net',
     port: 1433,
-    database: 'ShopNearMe'
+    database: 'ShopNearMe',
+    timeout: 30
 }
 
 //sql.connect(config, function(err) { });
