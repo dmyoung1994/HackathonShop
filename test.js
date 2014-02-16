@@ -21,7 +21,7 @@ var connection = new sql.Connection(config);
 function Test(res){
 
     var request = new sql.Request(connection);
-    request.query('SELECT * FROM keywords', function (err, results) {
+    request.query('SELECT id, keyword, count FROM keywords', function (err, results) {
          if (err) {
              res.writeHead(500, { 'Content-Type': 'text/plain' });
              res.write("Got error :-( " + err);
