@@ -25,10 +25,16 @@ function Test(res) {
 			output += 'Done Test';
 			var request = new sql.Request();
 			request.query('SELECT * FROM keywords', function (err, result){
-				if (err) {
-					throw err;
+				try{
+					if (err) {
+						throw err;
+					}
+					output += ' did query:'+result;
+				}catch(error){
+					res.send(res);
+				}finally{
+					res.send(output);
 				}
-				output += ' did query:'+result;
 			});
 		});
 	}catch(error){
