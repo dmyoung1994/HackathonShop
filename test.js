@@ -34,14 +34,15 @@ function Test(res) {
 		//     res.write("id: " + result[i][0] + " keyword: " + result[i][1] + " count: " + result[i][2]);
 		// }
 		res.send(result);
+		return;
 	    }, 
 	    error: function (err) {
 		if (err) {
 		    res.writeHead(500, { 'Content-Type': 'text/plain' });
 		    res.write("Got error :-( " + err);
 		    res.end("");
-		    return;
 		}
+		return;
 	    }
 	});
     //res.send('test html');
