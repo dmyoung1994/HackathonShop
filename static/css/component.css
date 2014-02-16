@@ -2,6 +2,7 @@ html {
 	height: 100%;
 	width: 100%;
 	background-color: #ADD8DF;
+	overflow: hidden;
 }
 
 body {
@@ -24,10 +25,10 @@ body {
 
 .elasticstack {
 	position: relative;
-	margin: 7rem auto;
+	margin: 5rem 2.5rem;
 	padding: 0;
-	width: 340px;
-	height: 380px;
+	width: 320px;
+	height: 370px;
 	list-style: none;
 	-webkit-perspective: 1000px;
 	-webkit-perspective-origin: 50% 150%;
@@ -45,8 +46,8 @@ body {
 .elasticstack li {
 	position: absolute;
 	z-index: 1;
-	width: 340px;
-	height: 380px;
+	width: 240px;
+	height: 280px;
 	background-color: #fff;
 	text-align: center;
 	border-width: 10px 10px;
@@ -73,15 +74,14 @@ body {
 
 .imageWrap{
 	overflow: hidden;
-	height: 270px;
-	outline: #CACACA solid thin;
-}
+	height: 190px;
+	outline: #CACACA solid thin;}
 
 .productHeader {
 	width: 100%;
 	text-align: center;
 	padding: 10px;
-	font-size: 30px;
+	font-size: 25px;
 	background-color: white;
 	color: black;
 	position: fixed;
@@ -92,13 +92,13 @@ body {
 
 .menuLeft {
 	position: absolute;
-	font-size: 20px;
+	font-size: 17px;
 	top: 15px;
 }
 
 .menuRight {
 	position: absolute;
-	font-size: 20px;
+	font-size: 17px;
 	top: 15px;
 	right: 10px;
 }
@@ -112,7 +112,9 @@ body {
 }
 
 #img {
-	height: 490px;
+	height: 270px;
+	margin-top: 60px;
+	margin-bottom: 30px;
 }
 
 .productFooter {
@@ -147,7 +149,7 @@ body {
 
 .priceWrap {
 	display: inline-block;
-	width: 49.5%;
+	width: 48.5%;
 	text-align: left;
 }
 
@@ -187,23 +189,23 @@ body {
 
 .elasticstack li img {
 	display: inline-block;
-	width: 100%;
+	width: 180px;
 	height: auto;
 	position: relative;
-	margin-top: -50px;
 }
 
 .elasticstack li h5 {
 	margin: 0 auto;
 	color: #143f51;
 	height: 60px;
-	font-size: 18px;
+	font-size: 15px;
 	font-family: "Helvetica", sans-serif;
-	line-height: 22px;
+	line-height: 15px;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
 	text-align: center;
+	vertical-align: bottom;
 }
 
 .elasticstack li.animate {
@@ -229,18 +231,17 @@ body {
 }
 
 .modal {
-    width: 350px;
-    height: 300px;
-    line-height: 20px;
-    position: fixed;
-    top: 50%; 
-    left: 50%;
-    margin-top: -170px;
-	margin-left: -175px;
-    background-color: #fafafa;
-    border-radius: 5px;
-    text-align: center;
-    z-index: 10000; /* 1px higher than the overlay layer */
+    width: 280px;
+	height: 300px;
+	line-height: 20px;
+	position: fixed;
+	top: 50%;
+	margin-top: -150px;
+	margin-left: 20px;
+	background-color: #fafafa;
+	border-radius: 5px;
+	text-align: center;
+	z-index: 10000;
 }
 
 .modalTitle {
@@ -332,12 +333,14 @@ body {
 	z-index: 3001;
 }
 
+/*
 #slide-menu-add{
 	position: absolute;
 	top: 0;
 	width: 100%;
 	z-index: 3002;
 }
+*/
 
 #slide-menu-fav{
 	position: absolute;
@@ -354,7 +357,7 @@ input[type="search"] {
 #interests {
 	position: relative;
 	display: inline-block;
-	margin-top: 56px;
+	margin-top: 50px;
 	width: 100%;
 }
 
@@ -365,13 +368,13 @@ input[type="search"] {
 }
 
 .listItem {
-	font-size: 2rem;
+	font-size: 1.5rem;
 	text-align: center;
-	border: 2px solid #CACACA;;
+	border: 2px solid #CACACA;
 	border-bottom: none;
 	border-right: none;
 	border-left: none;
-	padding: 1.1rem;
+	padding: 1rem;
 	color: black;
 }
 
@@ -386,7 +389,7 @@ input[type="search"] {
 .spinner {
 	position: absolute;
 	top: 30%;
-	left: 47%;
+	left: 40%;
 	z-index: 99999;
 	display: none;
 }

@@ -7,7 +7,8 @@ var mouseUpY = 0;
 // Defaults to SF
 var userLat = 37.7868019;
 var userLong = -122.39385070000002;
-var locString = "lat="+userLat+"&long="+userLong; 
+var locString = "lat="+userLat+"&long="+userLong;
+var dataString = "";
 
 var numberOfProducts = 0;
 
@@ -42,7 +43,7 @@ $(document).ready(function() {
 			keywords += $(this).text().trim() + ",";
 		});
 		keywords = keywords.substring(0, keywords.lastIndexOf(","));
-		var dataString = "key="+keywords;
+		dataString = "key="+keywords;
 		$.ajax({
 			type: 'GET',
 			url: '/add',
@@ -71,32 +72,36 @@ $(document).ready(function() {
 					var productLocationName = product['location']['name'];
 					var productLocationMap = product['location']['mapLink'];
 					var productBuyUrl = product['product']['url'];
-					var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl);
+					var keywords = product['product']['productType'];
+					var productID = product['location']['id'];
+					var retailerID = product['product']['id'];
+					var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl+"&keywords="+keywords+"&productID="+productID+"&retailerID="+retailerID);
 					var imageTag = "<li price='$" + productPrice + "' desc='" + productDesc + "' obj='" + obj + "' dist='" + productDist + " miles'" + "  buyURL='" + productBuyUrl + "'>" + "<div class='imageWrap'>" + "<img src='" + productImage + "'/>" + "</div><h5>" + productName + "</h5></li>";
 					$('.elasticstack').append(imageTag);
 					$('.spinner').fadeOut('fast');
 				}
 				stack = new ElastiStack(document.getElementById('elasticstack'));
 				console.log(numberOfProducts);
-			});
-			$.ajax({
-				type: "GET",
-				url: "/keywords"
-			}).done(function(data){
-				var JSONdata = JSON.parse(data);
-				var keywords = JSONdata['keywords'];
-				for(var i=0; i<keywords.length; i++){
-					var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
-					$('.listContainer', '#interests').append(newItem);
-				}
-			});
-			$.ajax({
-				type: "GET",
-				url: "/fav"
-			}).done(function(data){
-				//console.log(data);
-				var JSONdata = JSON.parse(data);
-				var keywords = JSONdata['products'];
+				$.ajax({
+					type: "GET",
+					url: "/keywords"
+				}).done(function(data){
+					var JSONdata = JSON.parse(data);
+					var keywords = JSONdata['keywords'];
+					for(var i=0; i<keywords.length; i++){
+						var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
+						$('.listContainer', '#interests').append(newItem);
+					}
+				});
+				$.ajax({
+					type: "GET",
+					url: "/fav"
+				}).done(function(data){
+					//console.log(data);
+					var JSONdata = JSON.parse(data);
+					var favourites = JSONdata['products'];
+					console.log(favourites);
+				});
 			});
 		});
 	});
@@ -129,7 +134,6 @@ $(document).ready(function() {
 		var deltaX = mouseDownX - mouseUpX;
 		if (deltaX > 100) {
 			numberOfProducts--;
-			console.log(numberOfProducts);
 			dataString = "object=" + $('.first').attr('obj');
 			$.ajax({
 				type: 'POST',
@@ -160,13 +164,36 @@ $(document).ready(function() {
 						var productLocationName = product['location']['name'];
 						var productLocationMap = product['location']['mapLink'];
 						var productBuyUrl = product['product']['url'];
-						var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl);
+						var keywords = product['product']['productType'];
+						var productID = product['location']['id'];
+						var retailerID = product['product']['id'];
+						var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl+"&keywords="+keywords+"&productID="+productID+"&retailerID="+retailerID);
 						var imageTag = "<li price='$" + productPrice + "' desc='" + productDesc + "' obj='" + obj + "' dist='" + productDist + " miles'" + "  buyURL='" + productBuyUrl + "'>" + "<div class='imageWrap'>" + "<img src='" + productImage + "'/>" + "</div><h5>" + productName + "</h5></li>";
 						$('.elasticstack').append(imageTag);
 						$('.spinner').fadeOut('fast');
 					}
 					stack = new ElastiStack(document.getElementById('elasticstack'));
 					console.log(numberOfProducts);
+					$.ajax({
+						type: "GET",
+						url: "/keywords"
+					}).done(function(data){
+						var JSONdata = JSON.parse(data);
+						var keywords = JSONdata['keywords'];
+						for(var i=0; i<keywords.length; i++){
+							var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
+							$('.listContainer', '#interests').append(newItem);
+						}
+					});
+					$.ajax({
+						type: "GET",
+						url: "/fav"
+					}).done(function(data){
+						//console.log(data);
+						var JSONdata = JSON.parse(data);
+						var favourites = JSONdata['products'];
+						console.log(favourites);
+					});
 				});
 			} 
 		} else if (deltaX < -100) {
@@ -202,7 +229,10 @@ $(document).ready(function() {
 						var productLocationName = product['location']['name'];
 						var productLocationMap = product['location']['mapLink'];
 						var productBuyUrl = product['product']['url'];
-						var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl);
+						var keywords = product['product']['productType'];
+						var productID = product['location']['id'];
+						var retailerID = product['product']['id'];
+						var obj = encodeURIComponent("image="+productImage+"&name="+productName+"&buyUrl="+productBuyUrl+"&keywords="+keywords+"&productID="+productID+"&retailerID="+retailerID);
 						var imageTag = "<li price='$" + productPrice + "' desc='" + productDesc + "' obj='" + obj + "' dist='" + productDist + " miles'" + "  buyURL='" + productBuyUrl + "'>" + "<div class='imageWrap'>" + "<img src='" + productImage + "'/>" + "</div><h5>" + productName + "</h5></li>";
 						$('.elasticstack').append(imageTag);
 						$('.spinner').fadeOut('fast');
@@ -212,7 +242,7 @@ $(document).ready(function() {
 				});
 			} 
 		} else if (deltaX === 0 && deltaY === 0) {
-			if($('.first').attr('src') !== undefined){
+			if($('.first img').attr('src') !== undefined){
 				var $form = $('.productFooter');
 				var price = $('.first').attr('price');
 				var desc = $('.first').attr('desc');
@@ -235,7 +265,7 @@ $(document).ready(function() {
 		$('#slide-menu').animate({
 			left: 0,
 			easing:"easeInOutCubic"
-		},1000);
+		},500);
 	});
 	
 	$('.back').click(function(){
@@ -245,12 +275,12 @@ $(document).ready(function() {
 			$(page).animate({
 				left: -windowWidth,
 				easing:"easeInOutCubic"
-			},1000);
+			},500);
 		} else {
 			$(page).animate({
 				right: -windowWidth,
 				easing:"easeInOutCubic"
-			},1000);
+			},500);
 		}
 	});
 	
@@ -258,17 +288,17 @@ $(document).ready(function() {
 		$('#slide-menu').animate({
 			left: 0,
 			easing:"easeInOutCubic"
-		},1000);
+		},500);
 		$('#slide-menu-add').animate({
 			left: 0,
 			easing:"easeInOutCubic"
-		},1000);
+		},500);
 	});
 	
 	$('.favs').click(function(){
 		$('#slide-menu-fav').animate({
 			right: 0,
 			easing:"easeInOutCubic"
-		},1000);
+		},500);
 	});
 });
