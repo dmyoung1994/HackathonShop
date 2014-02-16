@@ -73,7 +73,7 @@ app.use(function(req, res){//, next){
 		longt = req.url.match(/long=([^&\/]+)/)[1];
 		lat = req.url.match(/lat=([^&\/]+)/)[1];
 		handle.changeLocation(lat,longt,response);
-		//res.send(204 );
+		res.send(204 );
 		break;
 	case 'test':
 		new Test(res);

@@ -58,22 +58,22 @@ function Response(res){
 				if (err){
 					throw err;
 				}
-				myRes.send(text);
+				//myRes.send(text);
+				/*
+				var sendgrid  = require('sendgrid')(API_USER, API_KEY);
+				var Email     = sendgrid.Email;
+				var email     = new Email({
+				  to:       'dmyoung1994@gmail.com',
+				  from:     'segahm@gmail.com',
+				  subject:  'Shop near me - '+most_popular_keyword,
+				  text:     ''
+				});
+				sendgrid.send(email, function(err, json) {
+				  if (err) { return console.error(err); }
+				  console.log(json);
+				});*/
 			}
 		);
-		/*
-		var sendgrid  = require('sendgrid')(API_USER, API_KEY);
-		var Email     = sendgrid.Email;
-		var email     = new Email({
-		  to:       'dmyoung1994@gmail.com',
-		  from:     'segahm@gmail.com',
-		  subject:  'Shop near me - '+most_popular_keyword,
-		  text:     ''
-		});
-		sendgrid.send(email, function(err, json) {
-		  if (err) { return console.error(err); }
-		  console.log(json);
-		});*/
 	};
 }
 
