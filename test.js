@@ -29,7 +29,7 @@ function Test(res){
          }
          res.end("; Done.");
      });
-    res.send('test html');
+    //res.send('test html');
 }
 
 module.exports      = Test;
