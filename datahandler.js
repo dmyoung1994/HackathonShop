@@ -48,19 +48,14 @@ function Datahandler(){
 		var location = lat+','+longt;
 		var url_string = API_URL+'userlocation='+location+'&keywords='+keywords.join('+');
 		var email_keyword = keywords.shift();
-		console.log(url_string);
 
 		var address = URL.parse(url_string);
 		var options = {
 		  host: address.hostname,
 		  path: address.path
 		};
-		console.log('host:'+options.host);
-		console.log('path:'+options.path);
 
 		var req = http.get(options, function(res) {
-			console.log('STATUS: ' + res.statusCode);
-			console.log('HEADERS: ' + JSON.stringify(res.headers));
 
 			// Buffer the body entirely for processing as a whole.
 			var bodyChunks = [];
@@ -74,7 +69,6 @@ function Datahandler(){
 				}else{
 					myRes.sendEmail(body,email_keyword);
 				}
-				console.log('BODY: ' + body);
 				// ...and/or process the entire body here.
 			});
 		});
