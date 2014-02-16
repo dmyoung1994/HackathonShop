@@ -20,11 +20,11 @@ var config = {
 function Test(res){
     sql.connect(config, function (err) {
 	var request = new sql.Request();
-	request.query('SELECT id, keyword, count FROM keywords', {
+	request.query('SELECT * FROM keywords', {
 	    success: function(results) {
 		res.writeHead(200, { 'Content-Type': 'text/plain' });
 		for (var i = 0; i < results.length; i++) {
-		    res.write("id: " + results[i].id + " keyword: " + results[i].keyword + " count: " + results[i].count);
+		    res.write("id: " + results[i][0] + " keyword: " + results[i][1] + " count: " + results[i].[2]);
 		}
 		res.end("; Done.")
 	    }, 
