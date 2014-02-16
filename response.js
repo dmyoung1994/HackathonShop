@@ -3,8 +3,8 @@
 var http = require('http');
 var URL = require('url');
 var jade = require('jade');
-var API_USER = null,
-	API_KEY = null;
+var API_USER = 'segahm@gmail.com',
+	API_KEY = 'Gy3NsCQYwD3QTP';
 function Response(res){
 	this.res = res;
 	this.ajax = function(url){
@@ -46,7 +46,7 @@ function Response(res){
 		this.res.send(data);
 	};
 	this.sendEmail = function(data,most_popular_keyword){
-		var myRes = this.res;
+		//var myRes = this.res;
 		data = JSON.parse(data);
 		GLOBAL.EMAIL_BODY = data;
 		jade.renderFile('email.jade',
@@ -59,7 +59,7 @@ function Response(res){
 					throw err;
 				}
 				//myRes.send(text);
-				/*
+				
 				var sendgrid  = require('sendgrid')(API_USER, API_KEY);
 				var Email     = sendgrid.Email;
 				var email     = new Email({
@@ -71,7 +71,7 @@ function Response(res){
 				sendgrid.send(email, function(err, json) {
 				  if (err) { return console.error(err); }
 				  console.log(json);
-				});*/
+				});
 			}
 		);
 	};
