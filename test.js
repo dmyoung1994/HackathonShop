@@ -10,8 +10,6 @@ var config = {
     database: 'ShopNearMe'
 }
 
-var connection = new sql.Connection(config);
-
 //sql.connect(config, function(err) { });
 
 
@@ -20,8 +18,10 @@ var connection = new sql.Connection(config);
 
 function Test(res){
 
-    var request = new sql.Request(connection);
-    request.query('SELECT id, keyword, count FROM keywords', function (err, results) {
+    sql.connect(config, function (err) {
+
+	var request = new sql.Request();
+	request.query('SELECT id, keyword, count FROM keywords', function (err, results) {
          // if (err) {
          //     res.writeHead(500, { 'Content-Type': 'text/plain' });
          //     res.write("Got error :-( " + err);
@@ -33,7 +33,8 @@ function Test(res){
          //     res.write("id: " + results[i].id + " keyword: " + results[i].keyword + " count: " + results[i].count);
          // }
          res.end("; Done.");
-     });
+	});
+    });
     //res.send('test html');
 }
 
