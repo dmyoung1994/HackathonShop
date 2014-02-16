@@ -9,7 +9,7 @@ var Q         = require('q'),
 	DEFAULT_RANGE = 100,
 	API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&range='+DEFAULT_RANGE+'&';
 
-var KEYWORDS_STORE = {};
+var KEYWORDS_STORE = {'television': 1,'iphone': 1,'phone':1,'electronics': 1};
 var LIKES = {};
 var DISLIKES = {};
 function Datahandler(){
@@ -20,14 +20,14 @@ function Datahandler(){
 	};
 	//returns a list of top NUMBER_OF_KEYWORDS_TO_RETURN (10) keywords
 	this.getKeywords = function(){
-		var revnumSort = function(a,b){
-			return a[1]-b[1];
+		var numSort = function(a,b){
+			return b[1]-a[1];
 		};
 		var rows = [];
 		_(KEYWORDS_STORE).forIn(function(count,key){
 			rows.push([key,count]);
 		});
-		rows.sort(revnumSort);
+		rows.sort(numSort);
 		return rows.slice(0,NUMBER_OF_KEYWORDS_TO_RETURN);
 		//var keywords = ['apple','iphone','television','electronics'];	//fake keywords
 		/*knex('keywords')
