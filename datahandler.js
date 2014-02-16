@@ -9,6 +9,9 @@ var Q         = require('q'),
 	DEFAULT_RANGE = 100,
 	API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&range='+DEFAULT_RANGE+'&';
 
+var KEYWORDS_STORE = {};
+var LIKES = {};
+var DISLIKES = {};
 function Datahandler(){
 	//@param zipcode - zipcode of the location
 	this.changeLocation = function(lat,longt,res){
@@ -16,10 +19,18 @@ function Datahandler(){
 		return Q.ninvoke(this,'getProducts', lat,longt,res,false);
 	};
 	//returns a list of top NUMBER_OF_KEYWORDS_TO_RETURN (10) keywords
-	this.getKeywords = function(response){
-		var res = response;
+	this.getKeywords = function(){
+		var revnumSort = function(a,b){
+			return a[1]-b[1];
+		};
+		var rows = [];
+		_(KEYWORDS_STORE).forIn(function(count,key){
+			rows.push([key,count]);
+		});
+		rows.sort(revnumSort);
+		return rows.slice(0,NUMBER_OF_KEYWORDS_TO_RETURN);
 		//var keywords = ['apple','iphone','television','electronics'];	//fake keywords
-		knex('keywords')
+		/*knex('keywords')
 		.where('keyword','ilike','%fdsfds%')		//.where('keyword','ilike','%fdsfds%')
 		.orderBy('count','desc')
 		.limit(10).select('keyword','count')
@@ -29,7 +40,7 @@ function Datahandler(){
 				keywords.push([val[0], val[1]]);
 			});
 			res.sendKeywods(keywords);
-		});
+		});*/
 	};
 	//return a list of favorite products
 	this.getFavs = function(){
@@ -56,7 +67,7 @@ function Datahandler(){
 				"link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=l:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}},
 				{"ImageInfo":{"imageName":"SMALL","link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=s:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}}],
 				"url":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=p:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_",
-				"productType":["Video Games & Toys","Toys"]},"retailer":{"id":"91022948-671b-4a76-a61e-3fee8a7e68ca"}}]
+				"productType":["Video Games & Toys","Toys"]},"retailer":{"id":"91022948-671b-4a76-a61e-3fee8a7e68ca"}}];
 		return products;
 	};
 	this.doDislike = function(data){
@@ -64,27 +75,41 @@ function Datahandler(){
 		var product_id = data.productID;
 		var retailer_id = data.retailID;
 		this.removeKeys(keywords);
-		try{
-		}catch(error){
-			console.log(error);
-		}finally{
-			console.log('success insert');
+
+		if (typeof DISLIKES[product_id] === 'undefined'){
+			DISLIKES[product_id] = {retailer_id: 1};
+		}else{
+			DISLIKES[product_id][retailer_id] = 1;
 		}
 		//persist data in a db
+		_(keywords).forEach(function(key){
+			if (typeof KEYWORDS_STORE[key] === 'undefined'){
+				KEYWORDS_STORE[key] = 0
+			}else{
+				KEYWORDS_STORE[key]--;
+			} 
+		});
 	};
 	this.doLike = function(data){
 		var keywords = data.keywords;
 		var product_id = data.productID;
 		var retailer_id = data.retailID;
 		var json = {product: {name: data.name, image: data.image, buyUrl: data.buyUrl}}
-		this.addKeys(keywords);
-		try{
-		}catch(error){
-			console.log(error);
-		}finally{
-			console.log('success insert');
+
+		if (typeof LIKES[product_id] === 'undefined'){
+			LIKES[product_id] = {retailer_id: json};
+		}else{
+			LIKES[product_id][retailer_id] = json;
 		}
+		this.addKeys(keywords);
 		//persist data in a db
+		_(keywords).forEach(function(key){
+			if (typeof KEYWORDS_STORE[key] === 'undefined'){
+				KEYWORDS_STORE[key] = 0
+			}else{
+				KEYWORDS_STORE[key]++;
+			} 
+		});
 	};
 	this.getProducts = function(lat,longt,res,is_output_raw){
 		if (typeof is_output_raw === 'undefined'){
@@ -127,10 +152,25 @@ function Datahandler(){
 		});
 	};
 	this.executeRemove = function(somedata) {
-		console.log('executeRemove');
+		_(somdata).forEach(function(val){
+			if (typeof KEYWORDS_STORE[val] !== 'undefined'){
+				console.log('removing a key:'+val);
+				KEYWORDS_STORE[val]--;
+				if (KEYWORDS_STORE[val] < 0){
+					delete KEYWORDS_STORE[val];
+				}
+			}
+		})
 	};
 	this.executeAdd= function(somedata) {
-		console.log('executeAdd');
+		_(somdata).forEach(function(val){
+			if (typeof KEYWORDS_STORE[val] === 'undefined'){
+				console.log('adding a key:'+val);
+				KEYWORDS_STORE[val] = 1;
+			}else{
+				KEYWORDS_STORE[val]++;
+			}
+		})
 	};
 	//@param keywords - an array of keywords
 	this.removeKeys = function(keywords){

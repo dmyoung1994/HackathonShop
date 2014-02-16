@@ -2,8 +2,10 @@
 
 var express         = require('express'),
 	Response		= require('./response.js'),
-	Datahandler		= require('./datahandler.js'),
-	Knex 			= require('knex');
+	Knex 			= require('knex'),
+	Datahandler		= require('./datahandler.js');
+//var Test			= require('./test.js');
+
 
 Knex.knex = Knex.initialize({
   client: 'mysql',
@@ -11,12 +13,11 @@ Knex.knex = Knex.initialize({
     host     : 'us-cdbr-azure-west-b.cleardb.com',
     user     : 'b773b54a80dfb5',
     password : '584d33e0',
-    database : 'newshopdb',
+    database : 'newShopDb',
     charset  : 'utf8',
     port: 3306 //1433
   }
 });
-//var Test			= require('./test.js');
 
 var app = express();
 GLOBAL.EMAIL_BODY = null;
@@ -25,6 +26,7 @@ app.use('/static',express.static(__dirname+'/static'));
 app.use('/favicon.ico',express.static(__dirname+'/favicon.ico'));
 
 app.use(express.bodyParser());
+
 
 //!!!!!!!!!!!!!SET WEB SERVER LISTENER!!!!!!!!!!!!!!!!!!!
 app.use(function(req, res){//, next){
@@ -44,7 +46,7 @@ app.use(function(req, res){//, next){
 		break;
 	case 'keywords':
 		handle = new Datahandler();
-		handle.getKeywords(response);
+		response.sendKeywods(handle.getKeywords());
 		break;
 	case 'products':
 		handle = new Datahandler();
