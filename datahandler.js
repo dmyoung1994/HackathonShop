@@ -12,7 +12,7 @@ function Datahandler(){
 	//@param zipcode - zipcode of the location
 	this.changeLocation = function(lat,longt,res){
 		//we don't care about getting a response immediately
-		return Q.ninvoke(this,'getProducts', lat,longt,res,true);
+		return Q.ninvoke(this,'getProducts', lat,longt,res,false);
 	};
 	//returns a list of top NUMBER_OF_KEYWORDS_TO_RETURN (10) keywords
 	this.getKeywords = function(){
@@ -38,6 +38,9 @@ function Datahandler(){
 		//persist data in a db
 	};
 	this.getProducts = function(lat,longt,res,is_output_raw){
+		if (typeof is_output_raw === 'undefined'){
+			is_output_raw = true;
+		}
 		var myRes = res;
 		//get current keywords
 		var keywords = this.getKeywords();

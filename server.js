@@ -82,7 +82,7 @@ app.use(function(req, res){//, next){
 		lat = req.url.match(/lat=([^&\/]+)/)[1];
 		handle.changeLocation(lat,longt,response);
 		console.log('change');
-		res.send(204 );
+		//res.send(204 );
 		break;
 	case 'test':
 		new Test(res);

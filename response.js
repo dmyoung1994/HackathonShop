@@ -51,8 +51,8 @@ function Response(res){
 		this.res.send(data);
 	};
 	this.sendEmail = function(data,most_popular_keyword){
-		/*var sendgrid  = require('sendgrid')(API_USER, API_KEY);
-		var Email     = sendgrid.Email;
+		var myRes = this.res;
+		data = JSON.parse(data);
 		GLOBAL.EMAIL_BODY = data;
 		jade.renderFile('email.jade',
 			{
@@ -60,12 +60,15 @@ function Response(res){
 				debug: false,
 				globals: ['GLOBAL.EMAIL_BODY']
 			}, function (err, text) {
-			if (err){
-				throw err;
+				if (err){
+					throw err;
+				}
+				myRes.send(text);
 			}
-
-		});*/
+		);
 		/*
+		var sendgrid  = require('sendgrid')(API_USER, API_KEY);
+		var Email     = sendgrid.Email;
 		var email     = new Email({
 		  to:       'dmyoung1994@gmail.com',
 		  from:     'segahm@gmail.com',
