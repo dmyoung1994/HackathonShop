@@ -25,7 +25,8 @@ function Test(res) {
 	    res.end("");
 	    return;
 	}
-	
+	res.send('Done test.');
+	return;
 	var request = new sql.Request();
 	request.query('SELECT * FROM keywords', function (err, result) {
  	    if (err) {
