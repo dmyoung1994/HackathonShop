@@ -9,9 +9,9 @@ var API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7
 
 function Datahandler(){
 	//@param zipcode - zipcode of the location
-	this.changeLocation = function(zipcode,res){
+	this.changeLocation = function(lat,longt,res){
 		//we don't care about getting a response immediately
-		return Q.ninvoke(this,'getProducts', zipcode,res,true);
+		return Q.ninvoke(this,'getProducts', lat,longt,res,true);
 	};
 	//returns a list of top NUMBER_OF_KEYWORDS_TO_RETURN (10) keywords
 	this.getKeywords = function(){
@@ -25,13 +25,24 @@ function Datahandler(){
 		{"product":{"model":"9002908","msrpCurrency":"USD","weight":0.0,"productCategory":["Gifts"],"barcode":"00830659002908","sku":"4701151","productType":["GIFTS"],"id":"6dec5d0b-08f1-40a1-abb1-72674fb2e39c","externalproductid":"1218511830548","msrp":"9.99","color":["Red\/Black"],"name":"LEGO -Star WarsDarth Vader Watch - Red\/Black","descriptionLong":"Keep track of time with this LEGO Star Wars 9002908 watch that features a stylish Darth Vader design and is powered by Japanese quartz movement for reliable use. The 2 interchangeable bezels allows simple customization.","images":[{"ImageInfo":{"imageName":"LARGE","link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=l:6dec5d0b-08f1-40a1-abb1-72674fb2e39c&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}},{"ImageInfo":{"imageName":"SMALL","link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=s:6dec5d0b-08f1-40a1-abb1-72674fb2e39c&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}}],"brand":"LEGO","descriptionShort":"2 interchangeable bezels; extra links; Japanese quartz movement; crown stopper; mineral glass crystal; water-resistant up to 169.5'; Darth Vader design; includes Darth Vader mini figure"},"distance":{"distance":2.0919911983940613,"units":"miles"},"price":"9.99","location":{"id":"b3475653-f135-4c52-8dca-e1b3c51955b7","timezone":"America\/Los_Angeles","distance":{"distance":2.0919911983940613,"units":"miles"},"phone":"6506220050","tnavLink":"http:\/\/apps.scout.me\/v1\/driveto?dt=1127+Industrial+Rd+San+Carlos+CA+94070@37.501781,-122.24272&token=s6iLlaxu-k6-J92rQBlaPvozpxUPAAPhbIlKgFy5X_XcyFLYv6iVIkXH4rOPIvZDR1duzTMYCzrFYAMkx2Q3RILIva9TGKubnreoRxaAv_2uRGGItiCo-FJA9sJA9EPtSO70OFeu7LDg06EZxiQjxU_CKNfi76c_-ImDVGNCocQ&name=Best+Buy+-+San+Carlos","location":{"longitude":-122.24272,"latitude":37.501781},"address":{"postal":"94070","state":"CA","address1":"1127 Industrial Rd","country":"US","city":"San Carlos"},"hours":"2:10:00:AM:9:00:PM,3:10:00:AM:9:00:PM,4:10:00:AM:9:00:PM,5:10:00:AM:9:00:PM,6:10:00:AM:9:00:PM,7:10:00:AM:9:00:PM,1:10:00:AM:8:00:PM","mapLink":"http:\/\/maps.google.com\/maps?q=1127+Industrial+Rd+San+Carlos+CA+94070","name":"Best Buy - San Carlos","retailer":{"id":"37207e12-12f5-4de2-a7a2-b70feb230df2","logo":"http:\/\/bi2.retailigence.com\/img\/logo\/bestbuy-120x30.jpg","phs":1,"name":"Best Buy","logosq":"http:\/\/bi2.retailigence.com\/img\/logo\/bestbuy-50x50.jpg"},"retlocationid":"140"},"inventory":"http:\/\/apitest.retailigence.com\/v2.1\/inventory?apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&productId=6dec5d0b-08f1-40a1-abb1-72674fb2e39c&locationId=b3475653-f135-4c52-8dca-e1b3c51955b7&format=JSON","lastUpdated":"2014-02-15T19:44:03.175Z","currency":"USD"}
 		];
 		return products;
-	}
-	this.getProducts = function(zipcode,res,is_output_raw){
+	};
+	this.doDislike = function(data){
+		var keywords = data.product.productType.split(',');
+		this.removeKeys(keywords);
+		//persist data in a db
+	};
+	this.doLike = function(data){
+		var keywords = data.product.productType.split(',');
+		this.addKeys(keywords);
+		//persist data in a db
+	};
+	this.getProducts = function(lat,longt,res,is_output_raw){
 		var myRes = res;
 		//get current keywords
 		var keywords = this.getKeywords();
 		//construct the url
-		var url_string = API_URL+'userlocation='+zipcode+'&keywords='+keywords.join('+');
+		var location = lat+','+longt;
+		var url_string = API_URL+'userlocation='+location+'&keywords='+keywords.join('+');
 		var email_keyword = keywords.shift();
 		console.log(url_string);
 
