@@ -10,8 +10,9 @@ var config = {
     database: 'ShopNearMe'
 }
 
-sql.connect(config, function(err) {
-});
+var connection = new sql.Connection(config);
+
+//sql.connect(config, function(err) { });
 
 
 //var sql = require('msnodesql');
@@ -19,7 +20,7 @@ sql.connect(config, function(err) {
 
 function Test(res){
 
-    var request = new sql.Request();
+    var request = new sql.Request(connection);
     request.query('SELECT * FROM keywords', function (err, results) {
          if (err) {
              res.writeHead(500, { 'Content-Type': 'text/plain' });
