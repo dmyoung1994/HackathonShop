@@ -86,6 +86,7 @@ $(document).ready(function() {
 					type: "GET",
 					url: "/keywords"
 				}).done(function(data){
+					$('.listContainer', '#interests').html("");
 					var JSONdata = JSON.parse(data);
 					var keywords = JSONdata['keywords'];
 					for(var i=0; i<keywords.length; i++){
@@ -173,11 +174,11 @@ $(document).ready(function() {
 						$('.spinner').fadeOut('fast');
 					}
 					stack = new ElastiStack(document.getElementById('elasticstack'));
-					console.log(numberOfProducts);
 					$.ajax({
 						type: "GET",
 						url: "/keywords"
 					}).done(function(data){
+						$('.listContainer', '#interests').html("");
 						var JSONdata = JSON.parse(data);
 						var keywords = JSONdata['keywords'];
 						for(var i=0; i<keywords.length; i++){
@@ -190,9 +191,11 @@ $(document).ready(function() {
 						url: "/fav"
 					}).done(function(data){
 						//console.log(data);
+						$('.listContainer', '#favs').html();
 						var JSONdata = JSON.parse(data);
 						var favourites = JSONdata['products'];
 						console.log(favourites);
+						//$('.listContainer', '#favs').append(newItem);
 					});
 				});
 			} 
@@ -238,7 +241,29 @@ $(document).ready(function() {
 						$('.spinner').fadeOut('fast');
 					}
 					stack = new ElastiStack(document.getElementById('elasticstack'));
-					console.log(numberOfProducts);
+					$.ajax({
+						type: "GET",
+						url: "/keywords"
+					}).done(function(data){
+						$('.listContainer', '#interests').html("");
+						var JSONdata = JSON.parse(data);
+						var keywords = JSONdata['keywords'];
+						for(var i=0; i<keywords.length; i++){
+							var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
+							$('.listContainer', '#interests').append(newItem);
+						}
+					});
+					$.ajax({
+						type: "GET",
+						url: "/fav"
+					}).done(function(data){
+						//console.log(data);
+						$('.listContainer', '#favs').html();
+						var JSONdata = JSON.parse(data);
+						var favourites = JSONdata['products'];
+						console.log(favourites);
+						//$('.listContainer', '#favs').append(newItem);
+					});
 				});
 			} 
 		} else if (deltaX === 0 && deltaY === 0) {
