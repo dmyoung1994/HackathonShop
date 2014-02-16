@@ -24,10 +24,9 @@ function Test(res){
 	    success: function(result) {
 		// res.writeHead(200, { 'Content-Type': 'text/plain' });
 		// for (var i = 0; i < result.rows.length; i++) {
-		//     res.write("id: " + result.rows[i][0] + " keyword: " + result.rows[i][1] + " count: " + result.rows[i].[2]);
+		//     res.write("id: " + result[i][0] + " keyword: " + result[i][1] + " count: " + result[i][2]);
 		// }
-		res.write(result);
-		res.end("; Done.")
+		res.send(result);
 	    }, 
 	    error: function (err) {
 		if (err) {
