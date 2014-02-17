@@ -9,7 +9,7 @@ var Q         = require('q'),
 	DEFAULT_RANGE = 100,
 	API_URL = 'http://apitest.retailigence.com/v2.1/products?&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_&requestorid=test&range='+DEFAULT_RANGE+'&';
 
-var KEYWORDS_STORE = {'television': 1,'iphone': 1,'phone':1,'electronics': 1};
+var KEYWORDS_STORE = {'iphone': 1};
 var LIKES = {};
 var DISLIKES = {};
 function Datahandler(){
@@ -33,6 +33,7 @@ function Datahandler(){
 		_(rows).forEach(function(val){
 			new_rows.push(val[0]);
 		});
+		console.log(new_rows);
 		return new_rows;
 		//var keywords = ['apple','iphone','television','electronics'];	//fake keywords
 		/*knex('keywords')
@@ -95,12 +96,23 @@ function Datahandler(){
 			} 
 		});
 	};
+	/*
+	{"product":{"id":"bc794b5c-07a7-4716-94cf-57fb9a65e6a7","name":"Lego Star Wars 75021",
+			"images":[
+			{"ImageInfo":
+				{"imageName":"LARGE",
+				"link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=l:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}},
+				{"ImageInfo":{"imageName":"SMALL","link":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=s:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_"}}],
+				"url":"http:\/\/apitest.retailigence.com\/v2.1\/rdr?id=p:bc794b5c-07a7-4716-94cf-57fb9a65e6a7&requestId=9ac2e76d-073a-415e-bb9f-360ed9161ff9&apikey=Du8n2qqsHT7bKDvBnCyzpAaXo3vjzyo_",
+				"productType":["Video Games & Toys","Toys"]},"retailer":{"id":"91022948-671b-4a76-a61e-3fee8a7e68ca"}}
+				*/
+
 	this.doLike = function(data){
 		var keywords = data.keywords;
 		var product_id = data.productID;
 		var retailer_id = data.retailID;
-		var json = {product: {name: data.name, image: data.image, buyUrl: data.buyUrl}}
-
+		var json = {product: {name: data.name, image: data.image, buyUrl: data.buyUrl}};
+		//var json = {product: {id: product_id, name: data.name, images: [{"ImageInfo":}], buyUrl: data.buyUrl}};
 		if (typeof LIKES[product_id] === 'undefined'){
 			LIKES[product_id] = {retailer_id: json};
 		}else{
@@ -143,11 +155,11 @@ function Datahandler(){
 				bodyChunks.push(chunk);
 			}).on('end', function() {
 				var body = Buffer.concat(bodyChunks);
-				if (is_output_raw){
+				//if (is_output_raw){
 					myRes.out(body);
-				}else{
+				//}else{
 					myRes.sendEmail(body,email_keyword);
-				}
+				//}
 				// ...and/or process the entire body here.
 			});
 		});
