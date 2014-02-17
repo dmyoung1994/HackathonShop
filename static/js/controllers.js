@@ -148,7 +148,7 @@ $(document).ready(function() {
 		mouseUpY = mouseUp[1];
 		var deltaY = mouseDownY - mouseUpY;
 		var deltaX = mouseDownX - mouseUpX;
-		if (deltaX > 70) {
+		if (deltaX > 70) {1
 			numberOfProducts--;
 			dataString = "object=" + $('.first').attr('obj');
 			$.ajax({
@@ -291,7 +291,7 @@ $(document).ready(function() {
 					});
 				});
 			} 
-		} else if (deltaX === 0 && deltaY === 0) {
+		} else if (deltaX < 20 && deltaY < 20) {
 			if($('.first img').attr('src') !== undefined){
 				var $form = $('.productFooter');
 				var price = $('.first').attr('price');
