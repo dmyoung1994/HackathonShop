@@ -70,6 +70,7 @@ body {
 	width: 100%;
 	background: white;
 	height: 100%;
+	overflow-y: scroll;
 }
 
 .imageWrap{
