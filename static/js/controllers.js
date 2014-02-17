@@ -62,9 +62,15 @@ $(document).ready(function() {
 				data: locString
 			}).done(function(data){
 				var JSONdata = JSON.parse(data);
-				var products = JSONdata["RetailigenceSearchResult"]["results"];
+				var products = JSONdata["RetailigenceSearchResult"]['results'];
 				numberOfProducts = products.length;
+				if(numberOfProducts === 0){
+					alert("No products found, please try again later");
+					$('.spinner').fadeOut();
+					return;
+				}
 				for (var i = 0; i < products.length; i++) {
+					console.log(product);
 					var product = products[i]['SearchResult'];
 					var productImage = product['product']['images'][0]['ImageInfo']['link'];
 					var productName = product['product']['name'];
@@ -82,14 +88,15 @@ $(document).ready(function() {
 					$('.elasticstack').append(imageTag);
 					$('.spinner').fadeOut('fast');
 				}
-				stack = new ElastiStack(document.getElementById('elasticstack'));
-				console.log(numberOfProducts);
+				new ElastiStack(document.getElementById('elasticstack'));
 				$.ajax({
 					type: "GET",
 					url: "/keywords"
 				}).done(function(data){
+					console.log(data);
 					$('.listContainer', '#interests').html("");
 					var JSONdata = JSON.parse(data);
+					console.log(JSONdata);
 					var keywords = JSONdata['keywords'];
 					for(var i=0; i<keywords.length; i++){
 						var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
@@ -188,6 +195,7 @@ $(document).ready(function() {
 					}).done(function(data){
 						$('.listContainer', '#interests').html("");
 						var JSONdata = JSON.parse(data);
+						console.log(JSONdata);
 						var keywords = JSONdata['keywords'];
 						for(var i=0; i<keywords.length; i++){
 							var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
@@ -259,6 +267,7 @@ $(document).ready(function() {
 					}).done(function(data){
 						$('.listContainer', '#interests').html("");
 						var JSONdata = JSON.parse(data);
+						console.log(JSONdata);
 						var keywords = JSONdata['keywords'];
 						for(var i=0; i<keywords.length; i++){
 							var newItem = "<div class='listItem'>"+keywords[i]+"</div>";
