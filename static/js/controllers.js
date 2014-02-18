@@ -124,7 +124,7 @@ $(document).ready(function() {
 	
 	
 	
-	$('ul').mousedown(function() {
+	$('.first').mousedown(function() {
 		mouseDown = SetValues();
 		mouseDownX = mouseDown[0];
 		mouseDownY = mouseDown[1];
@@ -142,13 +142,13 @@ $(document).ready(function() {
 	$('#img').click(function() {
 		$('.productDetail').fadeOut();
 	});
-	$('ul').mouseup(function() {
+	$('.first').mouseup(function() {
 		mouseUp = SetValues();
 		mouseUpX = mouseUp[0];
 		mouseUpY = mouseUp[1];
 		var deltaY = mouseDownY - mouseUpY;
 		var deltaX = mouseDownX - mouseUpX;
-		if (deltaX > 70) {1
+		if (deltaX > 70) {
 			numberOfProducts--;
 			dataString = "object=" + $('.first').attr('obj');
 			$.ajax({

@@ -12,7 +12,9 @@ body {
 .container {
 	background-color: #F0EDED;
 	height: 100%;
-	overflow: hidden;	
+	overflow: hidden;
+	text-align: center;
+	overflow-y: scroll;
 }
 
 *,
@@ -25,7 +27,7 @@ body {
 
 .elasticstack {
 	position: relative;
-	margin: 5rem 2.5rem;
+	margin: 5rem 0;
 	padding: 0;
 	width: 240px;
 	height: 280px;
